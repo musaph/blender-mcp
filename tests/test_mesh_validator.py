@@ -34,6 +34,10 @@ class TestValidateMeshName:
             result = validate_mesh_name(f"mesh{char}name")
             assert not result, f"Expected failure for char: {char!r}"
 
+    def test_name_with_spaces(self):
+        # Spaces should be allowed in mesh names (common in Blender workflows)
+        assert validate_mesh_name("My Mesh Object").valid is True
+
 
 class TestValidateVertexCount:
     def test_valid_count(self):
@@ -60,6 +64,12 @@ class TestValidateVertexCount:
         result = validate_vertex_count(500, max_vertices=400)
         assert not result
 
+    def test_zero_vertices(self):
+        # Zero vertices should fail just like 1 or 2
+        result = validate_vertex_count(0)
+        assert not result
+        assert "3" in result.error
+
 
 class TestValidateLocation:
     def test_valid_origin(self):
@@ -80,6 +90,10 @@ class TestValidateLocation:
         result = validate_location((2e6, 0, 0))
         assert result.valid is True
         assert result.warning is not None
+
+    def test_negative_coordinates(self):
+        # Negative coordinates are perfectly valid in Blender
+        assert validate_location((-50.0, -100.0, -25.5)).valid is True
 
 
 class TestValidateScale:
