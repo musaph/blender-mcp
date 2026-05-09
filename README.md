@@ -78,4 +78,4 @@ Otherwise installation instructions are on their website: [Install uv](https://d
 
 **⚠️ Do not proceed before installing UV**
 
-> **Personal note:** On Windows I also had to restart my terminal (not just Claude Desktop) before the `uv` command was recognized. If you get a "command not found" error, try opening a brand new terminal window after completing the PATH step above.
+> **Personal note:** On Windows I also had to restart my terminal (not just Claude Desktop) before the `uv` command was recognized. If you see a "command not found" error, close and reopen your terminal completely.
