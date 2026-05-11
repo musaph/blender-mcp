@@ -31,7 +31,8 @@ def validate_mesh_name(name: str) -> ValidationResult:
     return ValidationResult(valid=True)
 
 
-def validate_vertex_count(count: int, max_vertices: int = 1_000_000) -> ValidationResult:
+# Lowered default from 1_000_000 to 500_000 — my machine struggles with larger meshes
+def validate_vertex_count(count: int, max_vertices: int = 500_000) -> ValidationResult:
     """Validate that a vertex count is within acceptable bounds."""
     if count < 3:
         return ValidationResult(
@@ -79,10 +80,4 @@ def validate_scale(scale: tuple) -> ValidationResult:
     for i, val in enumerate(scale):
         if not isinstance(val, (int, float)):
             return ValidationResult(
-                valid=False, error=f"Scale component [{i}] is not numeric: {val!r}."
-            )
-        if val == 0:
-            return ValidationResult(
-                valid=False, error=f"Scale component [{i}] cannot be zero."
-            )
-    return ValidationResult(valid=True)
+                valid=False,
